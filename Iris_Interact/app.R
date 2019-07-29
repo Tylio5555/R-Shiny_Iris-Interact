@@ -19,7 +19,7 @@ ui <- fluidPage(
 
     
     
-    # Sidebar with a slider input for number of bins 
+    # Sidebar
     sidebarLayout(
         sidebarPanel(
             selectInput("feature_1",
@@ -39,13 +39,24 @@ ui <- fluidPage(
     )
 )
 
-# Define server logic required to draw a histogram
+# Define server logic
 server <- function(input, output) {
 
     output$distPlot <- renderPlot({
-
+        
+        colors <- c("#00AFBB", "#E7B800", "#FC4E07")
+        colors <- colors[as.numeric(iris$Species)]
+        
+        # Define shapes
+        shapes = c(16, 17, 18)
+        shapes <- shapes[as.numeric(iris$Species)]
+        
         plot(iris %>% select(input$feature_1, input$feature_2),
-             bg = c("red", "green3", "blue")[unclass(iris$Species)])
+             col = colors, pch = shapes)
+        
+        legend("topright", legend = levels(iris$Species),
+               col =  c("#00AFBB", "#E7B800", "#FC4E07"),
+               pch = c(16, 17, 18) )
     })
 }
 

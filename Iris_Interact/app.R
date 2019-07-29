@@ -25,15 +25,11 @@ ui <- fluidPage(
             selectInput("feature_1",
                         "Feature 1:",
                         choices = names(iris)),
+            
             selectInput("feature_2",
                         "Feature 2:",
-                        choices = names(iris)),
+                        choices = names(iris))
             
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
         ),
 
         # Show a plot of the generated distribution
@@ -47,7 +43,7 @@ ui <- fluidPage(
 server <- function(input, output) {
 
     output$distPlot <- renderPlot({
-        
+
         plot(iris %>% select(input$feature_1, input$feature_2),
              bg = c("red", "green3", "blue")[unclass(iris$Species)])
     })
